@@ -12,7 +12,7 @@ class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   bool _passwordVisible = false;
   String password;
-
+//asdasdasa
   @override
   Widget build(BuildContext context) {
     return SafeArea(
