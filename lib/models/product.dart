@@ -22,8 +22,5 @@ class Product
     @required this.count,
     this.isFavorite=false,
   });
-  // factory Product.fromJson(Map<String,dynamic> jsonData)
-  // {
-  //   return Product(id: jsonData['id'], title:jsonData['title'], description: jsonData['description'], price: jsonData['price'], imageUrl:jsonData[''] , count: jsonData['discount'],);
-  // }
+ 
 }
