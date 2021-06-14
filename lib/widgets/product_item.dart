@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_shop_1/Providers/Products.dart';
 import 'package:galaxy_shop_1/screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
+
+//
 class ProductItem extends StatefulWidget {
   @override
   _ProductItemState createState() => _ProductItemState();
@@ -14,7 +16,7 @@ class ProductItem extends StatefulWidget {
   final String description;
   ProductItem(this.id,this.title,this.imageUrl,this.price,this.isFavorite,this.description);
 }
-
+// بناء كل منتج في الغريد فيو
 class _ProductItemState extends State<ProductItem> {
 
   @override

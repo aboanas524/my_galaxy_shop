@@ -4,18 +4,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:galaxy_shop_1/Providers/Products.dart';
-import 'package:galaxy_shop_1/screens/product_detail_screen.dart';
 import 'package:galaxy_shop_1/screens/search.dart';
 import '../widgets/product_item.dart';
 import 'package:provider/provider.dart';
 
-class ProductsGrid extends StatelessWidget {
+
+class ProductsGrid extends StatefulWidget {
+
+  @override
+  _ProductsGridState createState() => _ProductsGridState();
+}
+
+class _ProductsGridState extends State<ProductsGrid> {
+  // void initState()
+  // {
+  //   super.initState();
+  //   getData();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         actions: [
+          // عند الضغط على زر البحث ينتقل الى صفحة البحث
           Padding(child: IconButton(icon:Icon(Icons.search),onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (context){
               return PageSearch();
@@ -27,6 +39,7 @@ class ProductsGrid extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          // لعرض الاعلانات
           CarouselSlider(
             items: [
               Container(
@@ -77,16 +90,18 @@ class ProductsGrid extends StatelessWidget {
     );
   }
 }
+// غريد فيو لعرض المنتجات
 class MyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //  استقبال البيانات من كلاس المنتج ووضع المنتجات في products
     final productsData = Provider.of<Products>(context);
     final products = productsData.items;
     return Consumer<Products>(
       builder: (context, provider, child) =>
           GridView.builder(
             physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
+            shrinkWrap: true,// من اجل السكرول
             itemCount: products.length,
             itemBuilder: (context, i) =>
                 ProductItem(
@@ -97,6 +112,7 @@ class MyItem extends StatelessWidget {
                   products[i].isFavorite,
                   products[i].description,
                 ),
+            // وضع خصائص للغريد فيو
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisExtent: 175,
                 crossAxisCount: 2,

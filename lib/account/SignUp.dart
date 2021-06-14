@@ -12,7 +12,6 @@ class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   bool _passwordVisible = false;
   String password;
-//asdasdasa
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,6 +29,7 @@ class _SignUpState extends State<SignUp> {
                     topRight: Radius.circular(50),
                     topLeft: Radius.circular(50)),
               ),
+              // لوحة انشاء حساب
               child:Form(
                 key: _form,
               child: Column(
@@ -94,9 +94,6 @@ class _SignUpState extends State<SignUp> {
                             _passwordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Theme
-                                .of(context)
-                                .primaryColorDark,
                           ),
                           onPressed: () {
                             setState(() {

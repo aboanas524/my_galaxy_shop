@@ -19,15 +19,7 @@ class ProductDetailScreen extends StatefulWidget {
   @override
   _ProductDetailScreen createState() => _ProductDetailScreen();
 }
-
 class _ProductDetailScreen extends State<ProductDetailScreen> {
-  //her
-  var _myColorOne = Colors.grey;
-  var _myColorTwo = Colors.grey;
-  var _myColorThree = Colors.grey;
-  var _myColorFour = Colors.grey;
-  var _myColorFive = Colors.grey;
-
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context);
@@ -40,16 +32,6 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
       'images/card2.jpg',
       'images/card3.jog',
     ];
-    // int _current = 0;
-    //
-    // List<T> map<T>(List imglist, Function handler) {
-    //   List<T> result = [];
-    //   for (var i = 0; i < imglist.length; i++) {
-    //     result.add(handler(i, imglist[i]));
-    //   }
-    //   return result;
-    // }
-
     Widget titleSection = Container(
       child: Expanded(
         child:
@@ -75,73 +57,6 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Row(
-                  children: <Widget>[
-                    new IconButton(
-                      icon: new Icon(Icons.star),
-                      onPressed: () =>
-                          setState(() {
-                            _myColorOne = Colors.orange;
-                            _myColorTwo = null;
-                            _myColorThree = null;
-                            _myColorFour = null;
-                            _myColorFive = null;
-                          }),
-                      color: _myColorOne,
-                    ),
-                    new IconButton(
-                      icon: new Icon(Icons.star),
-                      onPressed: () =>
-                          setState(() {
-                            _myColorOne = Colors.orange;
-                            _myColorTwo = Colors.orange;
-                            _myColorThree = Colors.grey;
-                            _myColorFour = Colors.grey;
-                            _myColorFive = Colors.grey;
-                          }),
-                      color: _myColorTwo,
-                    ),
-                    new IconButton(
-                      icon: new Icon(Icons.star),
-                      onPressed: () =>
-                          setState(() {
-                            _myColorOne = Colors.orange;
-                            _myColorTwo = Colors.orange;
-                            _myColorThree = Colors.orange;
-                            _myColorFour = Colors.grey;
-                            _myColorFive = Colors.grey;
-                          }),
-                      color: _myColorThree,
-                    ),
-                    new IconButton(
-                      icon: new Icon(Icons.star),
-                      onPressed: () =>
-                          setState(() {
-                            _myColorOne = Colors.orange;
-                            _myColorTwo = Colors.orange;
-                            _myColorThree = Colors.orange;
-                            _myColorFour = Colors.orange;
-                            _myColorFive = Colors.grey;
-                          }),
-                      color: _myColorFour,
-                    ),
-                    new IconButton(
-                      icon: new Icon(Icons.star),
-                      onPressed: () =>
-                          setState(() {
-                            _myColorOne = Colors.orange;
-                            _myColorTwo = Colors.orange;
-                            _myColorThree = Colors.orange;
-                            _myColorFour = Colors.orange;
-                            _myColorFive = Colors.orange;
-                          }),
-                      color: _myColorFive,
-                    ),
-                  ],
-                ),
-              )
             ]
         ),
       ),

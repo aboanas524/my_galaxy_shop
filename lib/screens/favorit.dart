@@ -1,165 +1,107 @@
 
 import 'package:flutter/material.dart';
+import 'package:galaxy_shop_1/Providers/Products.dart';
+import 'package:provider/provider.dart';
 
-class MyApp4 extends StatelessWidget {
+class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: favorit(),
+      debugShowCheckedModeBanner: false,
+      home: Favorite(),
     );
   }
 }
+class Favorite extends StatefulWidget {
 
-class favorit extends StatefulWidget {
   @override
-  _favoritState createState() => _favoritState();
+  _FavoriteState createState() => _FavoriteState();
 }
+class _FavoriteState extends State<Favorite> {
+  Widget buildItem(context,i) {
+    final productsData = Provider.of<Products>(context);
+    final products = productsData.items;
+    return Container(
+      padding: EdgeInsets.fromLTRB(24, 10, 20, 10),
+      child: Column(
+        children: [
+          Image.asset(products[i].imageUrl),
+          SizedBox(height: 8.0),
+          Row(
+            children: [
+              Text(
+                '${products[i].title}',
+                style: TextStyle(fontSize: 20.0),
+              ),
+            ],
+          ),
+          SizedBox(height: 4.0),
+          Row(
+            children: [
+              Text(
+                '${products[i].price}\$',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  color: Colors.grey[1000],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 4.0),
+          Row(
+            children: [
+              Text(
+                '${products[i].description}',
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
 
-class _favoritState extends State<favorit> {
-  var _myColorOne = Colors.grey;
-
-  var _myColorTwo = Colors.grey;
-
-  var _myColorThree = Colors.grey;
-
-  var _myColorFour = Colors.grey;
-
-  var _myColorFive = Colors.grey;
-
-  Widget builditem() => Container(
-        padding: EdgeInsets.fromLTRB(24, 10, 20, 10),
-        child: Column(
-          children: [
-            Image.asset('images/card3.jpg'),
-            SizedBox(height: 8.0),
-            Row(
-              children: [
-                Text(
-                  'name',
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              ],
-            ),
-            SizedBox(height: 4.0),
-            Row(
-              children: [
-                Text(
-                  '1200\$',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.grey[1000],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 4.0),
-            Row(
-              children: [
-                Text(
-                  'blabalblablbaballbablablabladd',
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              children: <Widget>[
-                new IconButton(
-                  icon: new Icon(Icons.star),
-                  onPressed: () => setState(() {
-                    _myColorOne = Colors.orange;
-                    _myColorTwo = null;
-                    _myColorThree = null;
-                    _myColorFour = null;
-                    _myColorFive = null;
-                  }),
-                  color: _myColorOne,
-                ),
-                new IconButton(
-                  icon: new Icon(Icons.star),
-                  onPressed: () => setState(() {
-                    _myColorOne = Colors.orange;
-                    _myColorTwo = Colors.orange;
-                    _myColorThree = Colors.grey;
-                    _myColorFour = Colors.grey;
-                    _myColorFive = Colors.grey;
-                  }),
-                  color: _myColorTwo,
-                ),
-                new IconButton(
-                  icon: new Icon(Icons.star),
-                  onPressed: () => setState(() {
-                    _myColorOne = Colors.orange;
-                    _myColorTwo = Colors.orange;
-                    _myColorThree = Colors.orange;
-                    _myColorFour = Colors.grey;
-                    _myColorFive = Colors.grey;
-                  }),
-                  color: _myColorThree,
-                ),
-                new IconButton(
-                  icon: new Icon(Icons.star),
-                  onPressed: () => setState(() {
-                    _myColorOne = Colors.orange;
-                    _myColorTwo = Colors.orange;
-                    _myColorThree = Colors.orange;
-                    _myColorFour = Colors.orange;
-                    _myColorFive = Colors.grey;
-                  }),
-                  color: _myColorFour,
-                ),
-                new IconButton(
-                  icon: new Icon(Icons.star),
-                  onPressed: () => setState(() {
-                    _myColorOne = Colors.orange;
-                    _myColorTwo = Colors.orange;
-                    _myColorThree = Colors.orange;
-                    _myColorFour = Colors.orange;
-                    _myColorFive = Colors.orange;
-                  }),
-                  color: _myColorFive,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 4.0,
-            ),
-            Row(
-              children: [
-                // ignore: deprecated_member_use
-                RaisedButton(
-                  onPressed: () {},
-                  child: Text('Add To Cart'),
-                  color: Colors.cyan,
-                ),
-                SizedBox(
-                  width: 4.0,
-                ),
+          SizedBox(
+            height: 4.0,
+          ),
+          Row(
+            children: [
+              // ignore: deprecated_member_use
+              RaisedButton(
+                onPressed: () {},
+                child: Text('Add To Cart'),
+                color: Colors.blue,
+              ),
+              SizedBox(
+                width: 4.0,
+              ),
 // ignore: deprecated_member_use
-                RaisedButton(
-                  onPressed: () {},
-                  child: Text('Info'),
-                  color: Colors.red,
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-
+              RaisedButton(
+                onPressed: () {},
+                child: Text('Info'),
+                color: Colors.red,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
+    final productsData = Provider.of<Products>(context);
+    final products = productsData.items;
     return Scaffold(
       appBar: AppBar(
-        title: Text('my favorit item'),
+        title: Text('Favorite'),
       ),
       body: ListView.separated(
-          itemBuilder: (context, index) => builditem(),
-          separatorBuilder: (context, index) => SizedBox(
-                height: 20.0,
+          itemBuilder: (context, index) => buildItem(context,index),
+          separatorBuilder: (context, index) =>
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: Colors.grey[300],
               ),
-          itemCount: 10),
+          itemCount:products.length ),
     );
   }
 }

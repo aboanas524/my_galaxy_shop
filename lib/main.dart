@@ -2,12 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_shop_1/screens/product_overview_screen.dart';
-import './screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 import './Providers/Products.dart';
 import 'account/SignIn.dart';
 void main() {
   runApp(
+    // البروفايدر يوفر كلاس المنتج في كامل التطبيق
       MultiProvider(
         providers: [
           ChangeNotifierProvider<Products>(
@@ -16,7 +16,7 @@ void main() {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: MyApp(),
+          home: ProductsOverviewScreen(0),
         ),
       ));
 }
@@ -30,13 +30,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
-        accentColor: Colors.lightBlueAccent,
+        primaryColor: Colors.lightBlueAccent,
         fontFamily: 'Lato',
       ),
       home: SignIn(),
-      // routes: {ProductDetailScreen.routName: (ctx) => ProductDetailScreen(),
-      // },
     );
   }
 }

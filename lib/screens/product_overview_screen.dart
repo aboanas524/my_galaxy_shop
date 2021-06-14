@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:galaxy_shop_1/screens/search.dart';
+import 'package:galaxy_shop_1/screens/favorit.dart';
 import 'package:galaxy_shop_1/widgets/Products_grid.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+// import 'package:galaxy_shop_1/Providers/Products.dart';
 
 import 'Cart.dart';
 
@@ -16,9 +17,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   int currentPage;
   _ProductsOverviewScreenState(this.currentPage);
-
   GlobalKey bottomNavigationKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +26,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         height: MediaQuery.of(context).size.height,
         child: currentPage == 0 ? ProductsGrid() : currentPage == 1
             ? MyCart()
-            : PageSearch(),
+            : Favorite(),
       ),
       bottomNavigationBar: FancyBottomNavigation(
         initialSelection: currentPage,
@@ -48,8 +47,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
           ),
           TabData(
-            iconData: Icons.search,
-            title: 'Search',
+            iconData: Icons.favorite,
+            title: 'Favorite',
             onclick: () {},
           ),
         ],

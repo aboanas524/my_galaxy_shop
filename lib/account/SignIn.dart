@@ -7,11 +7,14 @@ class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
 }
-
+//Login
 class _SignInState extends State<SignIn> {
 
+  // كونترولر لحفظ قيمة الأميل
   final _emailController = TextEditingController();
+  // كونترولر لحفظ قيمة الباسوورد
   final _passwordController = TextEditingController();
+  // كونترولر للتحكم بالفالديشن للفورم
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   bool _passwordVisible = false;
 
@@ -24,6 +27,7 @@ class _SignInState extends State<SignIn> {
               backgroundColor: Colors.white,
               body: Center(
                 child: SingleChildScrollView(
+                  // لوحة الادخال
                   child: Form(
                     key: _form,
                     child: Column(
@@ -71,9 +75,6 @@ class _SignInState extends State<SignIn> {
                                   _passwordVisible
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColorDark,
                                 ),
                                 onPressed: () {
                                   setState(() {
