@@ -42,7 +42,7 @@ class _SignInState extends State<SignIn> {
                               left: 20, right: 20, top: 10, bottom: 10),
                           child: TextFormField(
                             validator: (val) {
-                              if (val.isEmpty || !val.contains('@'))
+                              if (val.isEmpty || !val.contains('@')||val.contains('.com'))
                                 return 'Invalid email';
                               return null;
                             },
