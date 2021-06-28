@@ -4,25 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:galaxy_shop_1/Providers/Products.dart';
+import 'package:galaxy_shop_1/Providers/cart.dart';
+import 'package:galaxy_shop_1/Providers/favorites.dart';
+import 'package:galaxy_shop_1/models/product.dart';
 import 'package:provider/provider.dart';
 
-
 class ProductDetailScreen extends StatefulWidget {
-
-  final String id;
-  final String title;
-  final String imageUrl;
-  final double price;
-  bool isFavorite;
-  final String description;
-  ProductDetailScreen(this.id,this.title,this.imageUrl,this.price,this.isFavorite,this.description);
+  final Product product;
+  ProductDetailScreen(
+    this.product,
+  );
   @override
   _ProductDetailScreen createState() => _ProductDetailScreen();
 }
+
 class _ProductDetailScreen extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<Products>(context);
+    var fav = Provider.of<FavProvider>(context);
+    var cart = Provider.of<CartProvider>(context);
     // ignore: unused_local_variable
     CarouselSlider carouselSlider;
 
@@ -33,33 +33,28 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
       'images/card3.jog',
     ];
     Widget titleSection = Container(
-      child: Expanded(
-        child:
-        Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Container(
+          padding: const EdgeInsets.all(32.0),
+          child: Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(32.0),
-                child: Row(
-                  children: [
-                    Text(widget.description,
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text(
-                      '      ${widget.price}\$',
-                      style: TextStyle(
-                        color: Colors.grey[1000],
-                      ),
-                    ),
-                  ],
+              Text(
+                widget.product.title,
+                style: TextStyle(fontSize: 20.0),
+              ),
+              SizedBox(
+                width: 20.0,
+              ),
+              Text(
+                '      ${widget.product.price}\$',
+                style: TextStyle(
+                  color: Colors.grey[1000],
                 ),
               ),
-            ]
+            ],
+          ),
         ),
-      ),
+      ]),
     );
 
     Widget buttonSection = Container(
@@ -69,28 +64,33 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
         children: [
           _buildButtonColumn(
               Colors.cyan,
-              IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}),
+              IconButton(
+                  icon: Icon(cart.cartContent.contains(widget.product)
+                      ? Icons.done
+                      : Icons.shopping_cart),
+                  onPressed: () {
+                    if (cart.cartContent.contains(widget.product))
+                      cart.removeFromCart(widget.product);
+                    else
+                      cart.addToCart(widget.product);
+                    setState(() {});
+                  }),
               'ADD TO CART'),
           _buildButtonColumn(
               Colors.cyan,
-              IconButton(icon: Icon(Icons.comment), onPressed: () {}),
-              'COMMENT'),
-          _buildButtonColumn(Colors.cyan,
-              IconButton(icon: Icon(Icons.favorite),
-                  color: widget.isFavorite ? Colors.red : Colors.grey,
+              IconButton(
+                  icon: Icon(Icons.favorite),
+                  color: fav.favContent.contains(widget.product)
+                      ? Colors.red
+                      : Colors.grey,
                   onPressed: () {
-                    setState(() {
-                      widget.isFavorite?widget.isFavorite=false:widget.isFavorite=true;
-
-                    });
-                    for(int i=0;i<productsData.items.length;i++)
-                    {
-                      if(productsData.items[i].id==widget.id)
-                      {
-                        productsData.items[i].isFavorite=widget.isFavorite;
-                      }
-                    }
-                  }), 'LIKE'),
+                    if (fav.favContent.contains(widget.product))
+                      fav.removeFromFav(widget.product);
+                    else
+                      fav.addToFav(widget.product);
+                    setState(() {});
+                  }),
+              'LIKE'),
         ],
       ),
     );
@@ -98,7 +98,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32.0),
       child: Text(
-        'bla bla bla bla bla bla bla bla bka bkdbkjbker iueegkge yvdm hyd diyjhw hjag uuuhedj  ',
+        widget.product.description,
         softWrap: true,
         style: TextStyle(fontSize: 20.0),
       ),
@@ -108,9 +108,9 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
       padding: const EdgeInsets.all(0.0),
       child: Scaffold(
         appBar: AppBar(
-            title: Text(widget.title),
-            backgroundColor: Colors.cyan,
-            ),
+          title: Text('Product'),
+          backgroundColor: Colors.cyan,
+        ),
         body: ListView(
           children: <Widget>[
             carouselSlider = CarouselSlider(
@@ -122,7 +122,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.imageUrl),
+                      image: AssetImage(widget.product.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -135,7 +135,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.imageUrl),
+                      image: AssetImage(widget.product.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -147,7 +147,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.imageUrl),
+                      image: AssetImage(widget.product.imageUrl),
                       fit: BoxFit.fitWidth,
                     ),
                   ),
@@ -182,9 +182,9 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        IconButton(icon: iconButton, color: color, onPressed: () {}),
+        iconButton,
         Container(
-          margin: const EdgeInsets.fromLTRB(30.0, 8.0, 16.0, 0.0),
+          margin: const EdgeInsets.fromLTRB(16.0, 6.0, 16.0, 0.0),
           child: Center(
             child: Text(
               label,
