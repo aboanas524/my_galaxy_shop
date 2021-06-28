@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_shop_1/Providers/cart.dart';
-import 'package:galaxy_shop_1/screens/product_overview_screen.dart';
 import 'package:provider/provider.dart';
 import './Providers/Products.dart';
 import 'Providers/favorites.dart';
@@ -24,7 +23,7 @@ void main() {
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductsOverviewScreen(0),
+      home: MyApp(),
     ),
   ));
 }
