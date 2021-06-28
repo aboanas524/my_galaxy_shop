@@ -16,6 +16,15 @@ class Product {
     @required this.description,
     @required this.price,
     @required this.imageUrl,
-    @required this.count,
+    this.count = 0,
   });
+  static Product fromMap(Map map) {
+    return Product(
+      id: map['id'].toString(),
+      title: map['title'],
+      description: map['description'],
+      price: double.parse(map['price']),
+      imageUrl: map['image'] ?? 'https://via.placeholder.com/150',
+    );
+  }
 }

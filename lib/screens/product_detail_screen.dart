@@ -122,7 +122,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.product.imageUrl),
+                      image: NetworkImage(widget.product.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -135,7 +135,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.product.imageUrl),
+                      image: NetworkImage(widget.product.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -147,7 +147,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.product.imageUrl),
+                      image: NetworkImage(widget.product.imageUrl),
                       fit: BoxFit.fitWidth,
                     ),
                   ),

@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:galaxy_shop_1/Providers/account.dart';
+import 'package:galaxy_shop_1/screens/product_overview_screen.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -7,6 +10,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
@@ -36,6 +41,7 @@ class _SignUpState extends State<SignUp> {
                       //TODO: SinUP => First Name
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
+                        controller: _name,
                         decoration: InputDecoration(
                           labelText: ' UserName ',
                           border: OutlineInputBorder(
@@ -58,6 +64,7 @@ class _SignUpState extends State<SignUp> {
                                   .hasMatch(val)) return 'Invalid email';
                           return null;
                         },
+                        controller: _email,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: ' Email  ',
@@ -150,8 +157,16 @@ class _SignUpState extends State<SignUp> {
                       //TODO: SinUP => Button Create
                       padding: const EdgeInsets.all(10.0),
                       child: MaterialButton(
-                        onPressed: () {
-                          _form.currentState.validate();
+                        onPressed: () async {
+                          if (_form.currentState.validate() == true) {
+                            await Provider.of<Account>(context, listen: false)
+                                .register(_name.text, _email.text, _pass.text);
+                            /*
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ProductsOverviewScreen(0);
+                              }));*/
+                          }
                         },
                         height: 50,
                         minWidth: 200,

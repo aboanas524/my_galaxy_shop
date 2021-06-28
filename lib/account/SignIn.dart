@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_shop_1/account/SignUp.dart';
+import 'package:galaxy_shop_1/Providers/account.dart';
 import 'package:galaxy_shop_1/screens/product_overview_screen.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -33,6 +35,7 @@ class _SignInState extends State<SignIn> {
                 // لوحة الادخال
                 child: Form(
                   key: _form,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: [
                       Image.asset('images/new.jpg', width: 300, height: 300),
@@ -106,12 +109,17 @@ class _SignInState extends State<SignIn> {
                             ' Login ',
                             style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (_form.currentState.validate() == true) {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return ProductsOverviewScreen(0);
-                              }));
+                              await Provider.of<Account>(context, listen: false)
+                                  .signIn(_emailController.text,
+                                      _passwordController.text);
+                              /*
+                              if (signed)
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ProductsOverviewScreen(0);
+                                }));*/
                             }
                           },
                         ),

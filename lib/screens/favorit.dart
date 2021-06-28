@@ -27,7 +27,7 @@ class _FavoriteState extends State<Favorite> {
       padding: EdgeInsets.fromLTRB(24, 10, 20, 10),
       child: Column(
         children: [
-          Image.asset(products[i].imageUrl),
+          Image.network(products[i].imageUrl),
           SizedBox(height: 8.0),
           Row(
             children: [

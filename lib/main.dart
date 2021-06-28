@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_shop_1/Providers/cart.dart';
+import 'package:galaxy_shop_1/Providers/account.dart';
 import 'package:galaxy_shop_1/screens/product_overview_screen.dart';
 import 'package:provider/provider.dart';
 import './Providers/Products.dart';
@@ -21,11 +22,11 @@ void main() {
       ChangeNotifierProvider<FavProvider>(
         create: (c) => FavProvider(),
       ),
+      ChangeNotifierProvider<Account>(
+        create: (c) => Account(),
+      ),
     ],
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProductsOverviewScreen(0),
-    ),
+    child: MyApp(),
   ));
 }
 
@@ -37,13 +38,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.lightBlueAccent,
-        fontFamily: 'Lato',
-      ),
-      home: SignIn(),
+    return FutureBuilder(
+      future: init(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done)
+          return Container();
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: Colors.lightBlueAccent,
+            fontFamily: 'Lato',
+          ),
+          home: Provider.of<Account>(context).signedIn
+              ? ProductsOverviewScreen(0)
+              : SignIn(),
+        );
+      },
     );
   }
 }

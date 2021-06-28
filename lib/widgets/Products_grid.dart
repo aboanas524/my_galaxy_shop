@@ -103,20 +103,29 @@ class MyItem extends StatelessWidget {
     //  استقبال البيانات من كلاس المنتج ووضع المنتجات في products
     final productsData = Provider.of<Products>(context);
     final products = productsData.items;
-    return Consumer<Products>(
-      builder: (context, provider, child) => GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true, // من اجل السكرول
-        itemCount: products.length,
-        itemBuilder: (context, i) => ProductItem(products[i]),
-        // وضع خصائص للغريد فيو
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisExtent: 175,
-            crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2),
-      ),
+    return FutureBuilder(
+      future: productsData.getAllProducts(),
+      builder: (context, snap) {
+        if (snap.connectionState != ConnectionState.done && products.isEmpty)
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        return Consumer<Products>(
+          builder: (context, provider, child) => GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true, // من اجل السكرول
+            itemCount: products.length,
+            itemBuilder: (context, i) => ProductItem(products[i]),
+            // وضع خصائص للغريد فيو
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisExtent: 175,
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2),
+          ),
+        );
+      },
     );
   }
 }
